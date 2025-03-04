@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ export class WebsocketService {
   private socket: WebSocket;
 
   constructor() {
-    this.socket = new WebSocket('ws://192.168.4.1/ws');
+    this.socket = new WebSocket(environment.websocketUrl);
     this.socket.onopen = () => console.log('WebSocket connection opened');
     this.socket.onclose = () => console.log('WebSocket connection closed');
     this.socket.onerror = (error) => console.error('WebSocket error', error);
