@@ -27,7 +27,7 @@ export class GamepadComponent implements OnInit, OnDestroy {
     window.removeEventListener('gamepaddisconnected', this.onGamepadDisconnected.bind(this));
     clearInterval(this.gamepadCheckInterval);
   }
-  
+
   private checkGamepadSupport(): void {
     this.isGamepadSupported = !!navigator.getGamepads;
     if (!this.isGamepadSupported) {
@@ -51,13 +51,34 @@ export class GamepadComponent implements OnInit, OnDestroy {
     if (this.gamepadIndex !== null) {
       const gamepad = navigator.getGamepads()[this.gamepadIndex];
       if (gamepad) {
+        this.isGamepadConnected = true;
         const message = {
-          id: gamepad.id,
-          axes: gamepad.axes,
-          buttons: gamepad.buttons.map(button => button.value)
+          axes: Array.from(gamepad.axes).map(axis => this.map_range(axis, -1, 1, 0, 256)),
+          buttons: Array.from(gamepad.buttons).map(button => ({
+            pressed: button.pressed,
+            value: button.value
+          }))
         };
-        this.websocketService.sendMessage(message);
+        this.processGamepadData(message);
+      } else {
+        this.isGamepadConnected = false;
       }
     }
+  }
+  private map_range(value:number, low1:number, high1:number, low2:number, high2:number):number {
+    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+  }
+  private processGamepadData(message: { 
+    axes: number[]; 
+    buttons: { pressed: boolean; value: number; }[] 
+  }): void {
+    // Filter out very small movements to prevent drift
+    const deadzone = 2;
+    message.axes = message.axes.map(value => 
+      Math.abs(value - 128) < deadzone ? 128 : value
+    );
+    console.log('Processed gamepad data:', message);
+    // Todo: Convert gamepad axes to motor speeds and send them to the server
+    this.websocketService.sendMessage(message);
   }
 }
