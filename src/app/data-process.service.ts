@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { WebsocketService } from './websocket.service';
 
-export interface messageData  {
+export interface messageDataMotor  {
   action: string;
   c1: string;
   c2: string;
   c3: string;
   c4: string;
+}
+
+export interface messageDataServo  {
+  action: string;
   s1: string;
   s2: string;
   s3: string;
@@ -14,7 +18,6 @@ export interface messageData  {
   s5: string;
   s6: string;
 }
-
 @Injectable({
   providedIn: 'root'
 })
@@ -34,6 +37,13 @@ export class DataProcessService {
     );
     console.log('Processed gamepad data:', message);
     // Todo: Convert gamepad axes to motor speeds and send them to the server
-    this.websocketService.sendMessage(message);
+    const sent: messageDataMotor = {
+      action: "motor",
+      c1: "1024",
+      c2: "0",
+      c3: "1024",
+      c4: "0"
+    }
+    this.websocketService.sendMessage(sent);
   }
 }

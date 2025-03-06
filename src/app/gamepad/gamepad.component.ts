@@ -20,7 +20,7 @@ export class GamepadComponent implements OnInit, OnDestroy {
     this.checkGamepadSupport();
     window.addEventListener('gamepadconnected', this.onGamepadConnected.bind(this));
     window.addEventListener('gamepaddisconnected', this.onGamepadDisconnected.bind(this));
-    this.gamepadCheckInterval = setInterval(this.checkGamepadStatus.bind(this), 100);
+    this.gamepadCheckInterval = setInterval(this.checkGamepadStatus.bind(this), 20);
   }
 
   ngOnDestroy(): void {
