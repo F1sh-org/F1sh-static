@@ -2,6 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WebsocketService } from '../websocket.service';
 import { DataProcessService } from '../data-process.service';
 
+interface GamepadState {
+  index: number;
+  isConnected: boolean;
+}
+
 @Component({
   selector: 'app-gamepad',
   standalone: false,
@@ -9,10 +14,10 @@ import { DataProcessService } from '../data-process.service';
   styleUrls: ['./gamepad.component.css']
 })
 export class GamepadComponent implements OnInit, OnDestroy {
-  private gamepadIndex: number | null = null;
+  private gamepadStates: Map<number, GamepadState> = new Map();
   private gamepadCheckInterval: any;
   public isGamepadSupported: boolean = false;
-  public isGamepadConnected: boolean = false;
+  public connectedGamepads: GamepadState[] = [];
 
   constructor(private dataProcess: DataProcessService) {}
 
@@ -37,34 +42,51 @@ export class GamepadComponent implements OnInit, OnDestroy {
   }
 
   private onGamepadConnected(event: GamepadEvent): void {
-    this.gamepadIndex = event.gamepad.index;
+    const state: GamepadState = {
+      index: event.gamepad.index,
+      isConnected: true
+    };
+    this.gamepadStates.set(event.gamepad.index, state);
+    this.updateConnectedGamepads();
     console.log('Gamepad connected:', event.gamepad);
   }
 
   private onGamepadDisconnected(event: GamepadEvent): void {
-    if (this.gamepadIndex === event.gamepad.index) {
-      this.gamepadIndex = null;
-    }
+    this.gamepadStates.delete(event.gamepad.index);
+    this.updateConnectedGamepads();
     console.log('Gamepad disconnected:', event.gamepad);
     this.dataProcess.disconnectMotor();
   }
 
+  private updateConnectedGamepads(): void {
+    this.connectedGamepads = Array.from(this.gamepadStates.values());
+  }
+
   private checkGamepadStatus(): void {
-    if (this.gamepadIndex !== null) {
-      const gamepad = navigator.getGamepads()[this.gamepadIndex];
+    const gamepads = navigator.getGamepads();
+    
+    for (const state of this.gamepadStates.values()) {
+      const gamepad = gamepads[state.index];
       if (gamepad) {
-        this.isGamepadConnected = true;
+        state.isConnected = true;
         const message = {
+          gamepadIndex: gamepad.index,
           axes: Array.from(gamepad.axes).map(axis => this.dataProcess.map_range(axis, -1, 1, 0, 256)),
           buttons: Array.from(gamepad.buttons).map(button => ({
             pressed: button.pressed,
             value: button.value
           }))
         };
+        this.dataProcess.sendGamepadData(message);
         this.dataProcess.processGamepadData(message);
       } else {
-        this.isGamepadConnected = false;
+        state.isConnected = false;
       }
     }
+    this.updateConnectedGamepads();
+  }
+
+  public get hasConnectedGamepads(): boolean {
+    return this.connectedGamepads.length > 0;
   }
 }

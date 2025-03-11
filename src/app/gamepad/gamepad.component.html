@@ -1,5 +1,14 @@
 <div>
     <p *ngIf="!isGamepadSupported">Gamepad API is not supported in this browser.</p>
-    <p *ngIf="isGamepadSupported && !isGamepadConnected">No gamepad connected. Please connect a gamepad.</p>
-    <p *ngIf="isGamepadSupported && isGamepadConnected">Gamepad connected. Data is being sent via WebSocket.</p>
+    
+    <div *ngIf="isGamepadSupported">
+        <p *ngIf="!hasConnectedGamepads">No gamepads connected. Please connect a gamepad.</p>
+        
+        <div *ngIf="hasConnectedGamepads">
+            <h3>Connected Gamepads:</h3>
+            <div *ngFor="let gamepad of connectedGamepads">
+                <p>Gamepad {{gamepad.index}} is active and sending data via WebSocket</p>
+            </div>
+        </div>
+    </div>
 </div>

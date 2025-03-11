@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { WebsocketService } from './websocket.service';
 
+export interface gamepadData {
+  gamepadIndex: number;
+  axes: number[];
+  buttons: { pressed: boolean; value: number; }[];
+}
 export interface messageDataMotor  {
   action: string;
   c1: string;
@@ -40,10 +45,7 @@ export class DataProcessService {
     }
     this.websocketService.sendMessage(sent); 
   }
-  processGamepadData(message: { 
-    axes: number[]; 
-    buttons: { pressed: boolean; value: number; }[] 
-  }): void {
+  processGamepadData(message: gamepadData): void {
     // Filter out very small movements to prevent drift
     const deadzone = 2;
     const speed = 4095;
@@ -101,6 +103,9 @@ export class DataProcessService {
       c4: c4.toString()
     }
     this.websocketService.sendMessage(sent); 
+  }
+  sendGamepadData(message: gamepadData): void {
+    this.websocketService.sendMessage(message);
   }
   updateData(): void {
     this.websocketService.reqData();
