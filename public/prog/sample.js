@@ -1,1 +1,0 @@
-// This is a sample of a Javascript file that will be compiled to JavaScript on runtime.
