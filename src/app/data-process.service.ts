@@ -52,8 +52,8 @@ export class DataProcessService {
     );
     console.log('Processed gamepad data:', message);
     // Implement your own logic here
-    var nJoyX:number = message.axes[0]; // read x-joystick
-    var nJoyY:number = message.axes[1]; // read y-joystick
+    var nJoyX:number = 128 - message.axes[0]; // read x-joystick
+    var nJoyY:number = 128 - message.axes[1]; // read y-joystick
     var nMotMixL:number; // Motor (left) mixed output
     var nMotMixR:number; // Motor (right) mixed output
     var temp:boolean = (nJoyY * nJoyX > 0);
