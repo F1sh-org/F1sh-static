@@ -46,6 +46,7 @@ export class GamepadComponent implements OnInit, OnDestroy {
       this.gamepadIndex = null;
     }
     console.log('Gamepad disconnected:', event.gamepad);
+    this.dataProcess.disconnectMotor();
   }
 
   private checkGamepadStatus(): void {
