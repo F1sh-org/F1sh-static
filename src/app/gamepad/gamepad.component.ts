@@ -55,7 +55,7 @@ export class GamepadComponent implements OnInit, OnDestroy {
     this.gamepadStates.delete(event.gamepad.index);
     this.updateConnectedGamepads();
     console.log('Gamepad disconnected:', event.gamepad);
-    this.dataProcess.disconnectMotor();
+    this.dataProcess.disconnectMessage();
   }
 
   private updateConnectedGamepads(): void {
@@ -71,14 +71,13 @@ export class GamepadComponent implements OnInit, OnDestroy {
         state.isConnected = true;
         const message = {
           gamepadIndex: gamepad.index,
-          axes: Array.from(gamepad.axes).map(axis => this.dataProcess.map_range(axis, -1, 1, 0, 256)),
+          axes: Array.from(gamepad.axes).map(axis => axis),
           buttons: Array.from(gamepad.buttons).map(button => ({
             pressed: button.pressed,
             value: button.value
           }))
         };
         this.dataProcess.sendGamepadData(message);
-        this.dataProcess.processGamepadData(message);
       } else {
         state.isConnected = false;
       }
