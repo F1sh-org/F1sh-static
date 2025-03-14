@@ -10,6 +10,7 @@ export interface messageData {
   }[];
 };
 export interface gamepadData {
+  action: string;
   gamepad: gamepadObject[];
 }
 
@@ -28,7 +29,7 @@ export interface messageDataAction  {
 export class DataProcessService {
   private intervalId: any;
   constructor(private websocketService: WebsocketService) {
-  this.intervalId = setInterval(() => this.updateData(),20);
+  this.intervalId = setInterval(() => this.updateData(),100);
   }
   disconnectMessage(): void { 
     const sent: messageDataAction = {
@@ -43,6 +44,7 @@ export class DataProcessService {
       Math.abs(value) < deadzone ? 0 : value
     );
     const sent: gamepadData = {
+      action: "gamepad",
       gamepad: [{
         axes: message.axes,
         buttons: message.buttons.map(button => button.value)
