@@ -45,7 +45,7 @@ export class GamepadComponent implements OnInit, OnDestroy {
 
   private startGamepadCheck(): void {
     if (!this.gamepadCheckInterval) {
-      this.gamepadCheckInterval = setInterval(this.checkGamepadStatus.bind(this), 20);
+      this.gamepadCheckInterval = setInterval(this.checkGamepadStatus.bind(this), 30);
     }
   }
 
