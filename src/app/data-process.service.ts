@@ -50,12 +50,12 @@ export class DataProcessService {
         buttons: message.buttons.map(button => button.value)
       }]
     }
-    console.log('Gamepad data sent:', sent);
+    //console.log('Gamepad data sent:', sent);
     this.websocketService.sendMessage(sent);
   }
   updateData(): void {
     this.websocketService.reqData();
     const msg = this.websocketService.getData();
-    console.log('Data from server:', msg);
+    //console.log('Data from server:', msg);
   }
 }
