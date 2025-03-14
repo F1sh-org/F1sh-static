@@ -18,6 +18,7 @@ export class GamepadComponent implements OnInit, OnDestroy {
   private gamepadCheckInterval: any;
   public isGamepadSupported: boolean = false;
   public connectedGamepads: GamepadState[] = [];
+  public isActive: boolean = false;
 
   constructor(private dataProcess: DataProcessService) {}
 
@@ -25,13 +26,34 @@ export class GamepadComponent implements OnInit, OnDestroy {
     this.checkGamepadSupport();
     window.addEventListener('gamepadconnected', this.onGamepadConnected.bind(this));
     window.addEventListener('gamepaddisconnected', this.onGamepadDisconnected.bind(this));
-    this.gamepadCheckInterval = setInterval(this.checkGamepadStatus.bind(this), 20);
   }
 
   ngOnDestroy(): void {
     window.removeEventListener('gamepadconnected', this.onGamepadConnected.bind(this));
     window.removeEventListener('gamepaddisconnected', this.onGamepadDisconnected.bind(this));
     clearInterval(this.gamepadCheckInterval);
+  }
+
+  public toggleGamepadCheck(): void {
+    if (this.isActive) {
+      this.stopGamepadCheck();
+    } else {
+      this.startGamepadCheck();
+    }
+    this.isActive = !this.isActive;
+  }
+
+  private startGamepadCheck(): void {
+    if (!this.gamepadCheckInterval) {
+      this.gamepadCheckInterval = setInterval(this.checkGamepadStatus.bind(this), 20);
+    }
+  }
+
+  private stopGamepadCheck(): void {
+    if (this.gamepadCheckInterval) {
+      clearInterval(this.gamepadCheckInterval);
+      this.gamepadCheckInterval = null;
+    }
   }
 
   private checkGamepadSupport(): void {
