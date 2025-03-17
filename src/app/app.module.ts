@@ -1,6 +1,6 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GamepadComponent } from './gamepad/gamepad.component';
@@ -19,6 +19,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

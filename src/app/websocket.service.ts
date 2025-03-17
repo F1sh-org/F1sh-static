@@ -7,7 +7,7 @@ export class WebsocketService implements OnDestroy {
   private socket: WebSocket;
   msg: any;
   constructor() {
-    this.socket = new WebSocket(environment.websocketUrl);
+    this.socket = new WebSocket(localStorage.getItem('websocketUrl') || environment.websocketUrl);
     this.socket.onopen = () => console.log('WebSocket connection opened');
     this.socket.onclose = () => console.log('WebSocket connection closed');
     this.socket.onerror = (error) => console.error('WebSocket error', error);
