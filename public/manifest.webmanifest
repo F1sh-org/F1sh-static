@@ -1,9 +1,9 @@
 {
-  "name": "F1sh-static",
-  "short_name": "F1sh-static",
+  "name": "F1sh",
+  "short_name": "F1sh",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
-  "display": "standalone",
+  "display": "fullscreen",
   "scope": "./",
   "start_url": "./",
   "icons": [
@@ -55,5 +55,19 @@
       "type": "image/png",
       "purpose": "maskable any"
     }
+  ],
+  "id": "f1sh-static",
+  "description": "Control robot using web interface",
+  "dir": "ltr",
+  "lang": "en",
+  "display_override": [
+    "fullscreen",
+    "minimal-ui",
+    "standalone",
+    "window-controls-overlay"
+  ],
+  "categories": [
+    "education",
+    "utilities"
   ]
 }
