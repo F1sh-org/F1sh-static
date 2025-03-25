@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { WebsocketService } from '../websocket.service';
 import { DataProcessService } from '../data-process.service';
 
 interface GamepadState {

@@ -29,13 +29,21 @@ export interface messageDataAction  {
 export class DataProcessService {
   private intervalId: any;
   constructor(private websocketService: WebsocketService) {
-  this.intervalId = setInterval(() => this.updateData(),100);
   }
   disconnectMessage(): void { 
     const sent: messageDataAction = {
       action: "gamepadDisconnected",
     }
     this.websocketService.sendMessage(sent); 
+  }
+  connect() {
+    this.websocketService.connect();
+    this.intervalId = setInterval(() => this.updateData(),100);
+  }
+
+  disconnect() {
+    this.websocketService.disconnect();
+    clearInterval(this.intervalId);
   }
   sendGamepadData(message: messageData): void {
     // Filter out very small movements to prevent drift
