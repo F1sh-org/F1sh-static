@@ -469,5 +469,6 @@
   "categories": [
     "education",
     "utilities"
-  ]
+  ],
+  "orientation": "landscape-primary"
 }
