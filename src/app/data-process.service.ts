@@ -11,7 +11,7 @@ export interface messageData {
 };
 export interface gamepadData {
   action: string;
-  gamepad: gamepadObject[];
+  data: gamepadObject[];
 }
 
 export interface gamepadObject {
@@ -53,7 +53,7 @@ export class DataProcessService {
     );
     const sent: gamepadData = {
       action: "gamepad",
-      gamepad: [{
+      data: [{
         axes: message.axes,
         buttons: message.buttons.map(button => button.value)
       }]
