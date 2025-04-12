@@ -8,12 +8,16 @@ import { DataProcessService } from '../data-process.service';
   styleUrl: './controller.component.css'
 })
 export class ControllerComponent {
-  constructor(private dpSrv: DataProcessService) {}
+  constructor(private dpSrv: DataProcessService, private ws: WebsocketService) {}
   connect() {
     this.dpSrv.connect();
   }
 
   disconnect() {
     this.dpSrv.disconnect();
+  }
+
+  connStatus() {
+    return this.ws.isConnected();
   }
 }
