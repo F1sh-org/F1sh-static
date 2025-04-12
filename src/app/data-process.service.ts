@@ -62,8 +62,10 @@ export class DataProcessService {
     this.websocketService.sendMessage(sent);
   }
   updateData(): void {
-    this.websocketService.reqData();
-    const msg = this.websocketService.getData();
-    //console.log('Data from server:', msg);
+    if (this.websocketService.isConnected()) {
+      this.websocketService.reqData();
+      const msg = this.websocketService.getData();
+      //console.log('Data from server:', msg);
+    }
   }
 }

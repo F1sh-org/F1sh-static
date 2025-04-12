@@ -21,7 +21,9 @@ export class WebsocketService implements OnDestroy {
       this.msg = event.data;
     });
   }
-
+  isConnected(): boolean {
+    return this.socket !== null && this.socket.readyState === WebSocket.OPEN;
+  }
   disconnect(): void {
     if (this.socket) {
       this.socket.close();
