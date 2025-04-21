@@ -47,7 +47,7 @@ export class DataProcessService {
   }
   sendGamepadData(message: messageData): void {
     // Filter out very small movements to prevent drift
-    const deadzone = 0.005;
+    const deadzone = 0.008;
     message.axes = message.axes.map(value => 
       Math.abs(value) < deadzone ? 0 : value
     );
