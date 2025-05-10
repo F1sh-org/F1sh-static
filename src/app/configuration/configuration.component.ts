@@ -3,7 +3,7 @@ import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-configuration',
-
+  standalone: false,
   templateUrl: './configuration.component.html',
   styleUrl: './configuration.component.css',
 })

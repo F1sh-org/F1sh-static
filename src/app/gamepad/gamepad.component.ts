@@ -8,7 +8,7 @@ interface GamepadState {
 
 @Component({
   selector: 'app-gamepad',
-
+  standalone: false,
   templateUrl: './gamepad.component.html',
   styleUrls: ['./gamepad.component.css'],
 })
