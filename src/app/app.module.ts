@@ -10,12 +10,7 @@ import { ControllerComponent } from './controller/controller.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    GamepadComponent,
-    ControllerComponent,
-    ConfigurationComponent
-  ],
+  declarations: [AppComponent, GamepadComponent, ControllerComponent, ConfigurationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,10 +19,10 @@ import { ConfigurationComponent } from './configuration/configuration.component'
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
   providers: [WebsocketService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

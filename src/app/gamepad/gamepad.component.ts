@@ -8,16 +8,16 @@ interface GamepadState {
 
 @Component({
   selector: 'app-gamepad',
-  standalone: false,
+
   templateUrl: './gamepad.component.html',
-  styleUrls: ['./gamepad.component.css']
+  styleUrls: ['./gamepad.component.css'],
 })
 export class GamepadComponent implements OnInit, OnDestroy {
-  private gamepadStates: Map<number, GamepadState> = new Map();
+  private gamepadStates = new Map<number, GamepadState>();
   private gamepadCheckInterval: any;
-  public isGamepadSupported: boolean = false;
+  public isGamepadSupported = false;
   public connectedGamepads: GamepadState[] = [];
-  public isActive: boolean = false;
+  public isActive = false;
 
   constructor(private dataProcess: DataProcessService) {}
 
@@ -65,7 +65,7 @@ export class GamepadComponent implements OnInit, OnDestroy {
   private onGamepadConnected(event: GamepadEvent): void {
     const state: GamepadState = {
       index: event.gamepad.index,
-      isConnected: true
+      isConnected: true,
     };
     this.gamepadStates.set(event.gamepad.index, state);
     this.updateConnectedGamepads();
@@ -85,18 +85,18 @@ export class GamepadComponent implements OnInit, OnDestroy {
 
   private checkGamepadStatus(): void {
     const gamepads = navigator.getGamepads();
-    
+
     for (const state of this.gamepadStates.values()) {
       const gamepad = gamepads[state.index];
       if (gamepad) {
         state.isConnected = true;
         const message = {
           gamepadIndex: gamepad.index,
-          axes: Array.from(gamepad.axes).map(axis => axis),
-          buttons: Array.from(gamepad.buttons).map(button => ({
+          axes: Array.from(gamepad.axes).map((axis) => axis),
+          buttons: Array.from(gamepad.buttons).map((button) => ({
             pressed: button.pressed,
-            value: button.value
-          }))
+            value: button.value,
+          })),
         };
         this.dataProcess.sendGamepadData(message);
       } else {

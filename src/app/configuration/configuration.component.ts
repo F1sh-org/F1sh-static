@@ -3,9 +3,9 @@ import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-configuration',
-  standalone: false,
+
   templateUrl: './configuration.component.html',
-  styleUrl: './configuration.component.css'
+  styleUrl: './configuration.component.css',
 })
 export class ConfigurationComponent {
   websocketUrl: string;
@@ -23,4 +23,3 @@ export class ConfigurationComponent {
     window.location.reload();
   }
 }
-

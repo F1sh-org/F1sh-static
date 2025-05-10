@@ -1,8 +1,8 @@
 <button (click)="connect()">Connect to WebSocket</button>
 <button (click)="disconnect()">Disconnect</button>
 <div [ngSwitch]="connStatus()">
-    <div>Connection status</div>
-    <div *ngSwitchCase="true">Connected</div>
-    <div *ngSwitchDefault>Disconnected</div>
+  <div>Connection status</div>
+  <div *ngSwitchCase="true">Connected</div>
+  <div *ngSwitchDefault>Disconnected</div>
 </div>
 <app-gamepad></app-gamepad>

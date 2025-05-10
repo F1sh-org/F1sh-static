@@ -4,11 +4,12 @@
   </div>
 
   <div class="controls">
-    <button 
+    <button
       [disabled]="!isGamepadSupported || !hasConnectedGamepads"
       (click)="toggleGamepadCheck()"
-      [class.active]="isActive">
-      {{ isActive ? 'Stop' : 'Start' }} Transmission
+      [class.active]="isActive"
+    >
+      {{ isActive ? "Stop" : "Start" }} Transmission
     </button>
   </div>
 

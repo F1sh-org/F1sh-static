@@ -6,11 +6,11 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 const routes: Routes = [
   { path: '', redirectTo: '/controller', pathMatch: 'full' },
   { path: 'controller', component: ControllerComponent },
-  { path: 'config', component: ConfigurationComponent }
+  { path: 'config', component: ConfigurationComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

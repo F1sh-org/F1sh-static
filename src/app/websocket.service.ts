@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { environment } from '../environments/environment';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WebsocketService implements OnDestroy {
   private socket: WebSocket | null = null;
@@ -12,12 +12,12 @@ export class WebsocketService implements OnDestroy {
     if (this.socket) {
       return; // Already connected
     }
-    
+
     this.socket = new WebSocket(localStorage.getItem('websocketUrl') || environment.websocketUrl);
     this.socket.onopen = () => console.log('WebSocket connection opened');
     this.socket.onclose = () => console.log('WebSocket connection closed');
     this.socket.onerror = (error) => console.error('WebSocket error', error);
-    this.socket.addEventListener('message', event => {
+    this.socket.addEventListener('message', (event) => {
       this.msg = event.data;
     });
   }
@@ -43,8 +43,8 @@ export class WebsocketService implements OnDestroy {
   }
   reqData(): void {
     const sent = {
-      action: "get"
-    }
+      action: 'get',
+    };
     this.sendMessage(sent);
   }
   ngOnDestroy() {

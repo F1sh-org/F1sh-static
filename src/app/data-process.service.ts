@@ -8,7 +8,7 @@ export interface messageData {
     pressed: boolean;
     value: number;
   }[];
-};
+}
 export interface gamepadData {
   action: string;
   data: gamepadObject[];
@@ -19,26 +19,25 @@ export interface gamepadObject {
   buttons: number[];
 }
 
-export interface messageDataAction  {
+export interface messageDataAction {
   action: string;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataProcessService {
   private intervalId: any;
-  constructor(private websocketService: WebsocketService) {
-  }
-  disconnectMessage(): void { 
+  constructor(private websocketService: WebsocketService) {}
+  disconnectMessage(): void {
     const sent: messageDataAction = {
-      action: "gamepadDisconnected",
-    }
-    this.websocketService.sendMessage(sent); 
+      action: 'gamepadDisconnected',
+    };
+    this.websocketService.sendMessage(sent);
   }
   connect() {
     this.websocketService.connect();
-    this.intervalId = setInterval(() => this.updateData(),100);
+    this.intervalId = setInterval(() => this.updateData(), 100);
   }
 
   disconnect() {
@@ -48,16 +47,16 @@ export class DataProcessService {
   sendGamepadData(message: messageData): void {
     // Filter out very small movements to prevent drift
     const deadzone = 0.008;
-    message.axes = message.axes.map(value => 
-      Math.abs(value) < deadzone ? 0 : value
-    );
+    message.axes = message.axes.map((value) => (Math.abs(value) < deadzone ? 0 : value));
     const sent: gamepadData = {
-      action: "gamepad",
-      data: [{
-        axes: message.axes,
-        buttons: message.buttons.map(button => button.value)
-      }]
-    }
+      action: 'gamepad',
+      data: [
+        {
+          axes: message.axes,
+          buttons: message.buttons.map((button) => button.value),
+        },
+      ],
+    };
     //console.log('Gamepad data sent:', sent);
     this.websocketService.sendMessage(sent);
   }

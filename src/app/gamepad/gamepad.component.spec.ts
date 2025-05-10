@@ -8,9 +8,8 @@ describe('GamepadComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GamepadComponent]
-    })
-    .compileComponents();
+      declarations: [GamepadComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(GamepadComponent);
     component = fixture.componentInstance;
