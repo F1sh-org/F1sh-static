@@ -1,0 +1,9 @@
+---
+services:
+  f1sh-static:
+    image: F1sh-org/static
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
