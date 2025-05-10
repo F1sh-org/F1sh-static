@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-standalone */
 import { Component } from '@angular/core';
 import { WebsocketService } from '../websocket.service';
 import { DataProcessService } from '../data-process.service';

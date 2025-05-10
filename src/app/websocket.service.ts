@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Injectable, OnDestroy } from '@angular/core';
 import { environment } from '../environments/environment';
 @Injectable({

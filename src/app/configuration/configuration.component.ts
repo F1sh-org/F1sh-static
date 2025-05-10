@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-standalone */
 import { Component } from '@angular/core';
 import { environment } from '../../environments/environment';
 

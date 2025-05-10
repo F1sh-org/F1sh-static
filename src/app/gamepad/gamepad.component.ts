@@ -1,3 +1,5 @@
+/* eslint-disable @angular-eslint/prefer-standalone */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataProcessService } from '../data-process.service';
 
