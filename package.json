@@ -1,6 +1,6 @@
 {
   "name": "f1sh-static",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
